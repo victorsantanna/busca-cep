@@ -107,7 +107,7 @@ export default {
                 this.show = false;
               }, 900);  
         } catch (error) {
-        
+          alert('Servidor fora do ar')
         }
         }else{
           alert('Por favor, não utilize letras!')
@@ -126,7 +126,7 @@ export default {
   mounted() {
   setInterval(() => {
     this.currentIndex = (this.currentIndex + 1) % this.imagens.length;
-  }, 5000); // Alterna a cada 5 segundos (5000 milissegundos)
+  }, 5000); 
 },
 }
 </script>
@@ -220,7 +220,7 @@ export default {
 }
 
 .parent{
-  margin-top: 5rem;
+  margin-top: 4rem;
 }
 .input-info {
   margin: 0.4rem 0;
@@ -237,11 +237,39 @@ export default {
   border-radius: 5px;
   box-shadow: 2px 4px 10px #0000001c;
 }
+.input-cep:focus-visible{
+  outline:1.5px solid #09445f;
+}
 p{
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 6px;
   font-size: 15px;
+}
+@media screen and (max-width: 963px){
+  .form-img{
+    display: none;
+  }
+  .container{
+    width: 50%;
+  }
+  .form{
+    width:100%;
+  }
+
+}
+@media screen and (max-width: 818px){
+ 
+  .btn, .input-cep{
+    width: 100%;
+  }
+  .input-info{
+    margin: 0.2rem 0;
+    padding: 0.2rem .6rem;
+  }
+  .title{
+    font-size:12px;
+  }
 }
 </style>
