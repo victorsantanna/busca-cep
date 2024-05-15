@@ -1,13 +1,18 @@
 <template>
+
   <section class="container">
+
     <div class="form-img">
       <img :src="currentImage" alt="imagem de localização" class="image-transition">
     </div>
+
     <div class="form">
       <div class="form-header">
+
         <div class="title">
           <h2>Buscar Endereço</h2>
         </div>
+
         <div class="form-group">
           <input 
           class="input-cep"
@@ -18,16 +23,19 @@
           v-model="endereco.cep"
           @keyup.enter="buscarCep"
           maxlength="8"
-         
           >
+
           <button 
           class="btn"
           @click="buscarCep"
           >
           Buscar
           </button>
+
         </div>
-        <p class="cep-erro" v-if="esconderErro">{{ this.erro }}</p>
+
+        <p class="cep-erro" v-if="!esconderErro">{{ this.erro }}</p>
+
         <div class="endereco-info" v-if="esconderInfo">
           <div class="info">
             <label for="logradouro" class="info-linha">Logradouro: </label>
@@ -41,6 +49,7 @@
           </div>
           
         </div>
+
         <div class="parent">
           <vue-element-loading 
           :active="show" 
@@ -52,8 +61,11 @@
         </div>
         
       </div>
+
     </div>
+
   </section>
+
 </template>
 
 <script>
@@ -89,31 +101,36 @@ export default {
         if(/^\d+$/.test(this.endereco.cep)){
           try {
           this.esconderInfo = false;
-          this.esconderErro=false;
+          this.esconderErro=true;
           this.show=true;
           const response = await fetch(`http://viacep.com.br/ws/${this.endereco.cep}/json/`)
           const data = await response.json();        
               setTimeout(() => {
                 if(data.erro){
                   this.erro = 'CEP não encontrado!';
-                  this.esconderErro=true;
+                  this.esconderErro=false;
                 }else{
                   this.endereco.logradouro = data.logradouro;
                   this.endereco.bairro = data.bairro;
                   this.endereco.localidade = data.localidade;
                   this.endereco.uf = data.uf;
                   this.esconderInfo = true;
+                  
                 }
                 this.show = false;
+                
               }, 900);  
         } catch (error) {
-          alert('Servidor fora do ar')
+          alert('Servidor fora do ar');
+          this.show = false;
         }
         }else{
           alert('Por favor, não utilize letras!')
+          this.esconderErro=false;
         }
       }else{
         alert('Por gentileza digite um CEP!')
+        this.esconderErro=false;
       }
 
     },
