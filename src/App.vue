@@ -34,8 +34,7 @@
 
         </div>
 
-        <p class="cep-erro" v-if="!esconderErro">{{ this.erro }}</p>
-
+      
         <div class="endereco-info" v-if="esconderInfo">
           <div class="info">
             <label for="logradouro" class="info-linha">Logradouro: </label>
@@ -107,7 +106,12 @@ export default {
           const data = await response.json();        
               setTimeout(() => {
                 if(data.erro){
-                  this.erro = 'CEP não encontrado!';
+                  
+                  this.$toast.open({
+                  message: 'CEP não encontrado!',
+                  type: 'error',
+                  position:'top'
+                });
                   this.esconderErro=false;
                 }else{
                   this.endereco.logradouro = data.logradouro;
@@ -121,15 +125,29 @@ export default {
                 
               }, 900);  
         } catch (error) {
-          alert('Servidor fora do ar');
+          this.$toast.open({
+            message: 'Servidor fora do Ar!',
+            type:'info',
+            position:'top'
+          });
+        this.esconderErro=
           this.show = false;
         }
         }else{
-          alert('Por favor, não utilize letras!')
+          this.$toast.open({
+            message: 'Erro ao buscar o CEP!',
+            type: 'error',
+            position:'top'
+          });
           this.esconderErro=false;
         }
       }else{
-        alert('Por gentileza digite um CEP!')
+        this.$toast.open({
+            message: 'Por Gentileza, digite um CEP!',
+            type: 'error',
+            position:'top',
+
+          });
         this.esconderErro=false;
       }
 
@@ -264,6 +282,7 @@ p{
   margin-top: 6px;
   font-size: 15px;
 }
+
 @media screen and (max-width: 963px){
   .form-img{
     display: none;
