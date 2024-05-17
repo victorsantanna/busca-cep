@@ -1,7 +1,6 @@
 <template>
 
   <section class="container">
-
     <div class="form-img">
       <img :src="currentImage" alt="imagem de localização" class="image-transition">
     </div>
@@ -22,18 +21,15 @@
           placeholder="Digite o CEP"
           v-model="endereco.cep"
           @keyup.enter="buscarCep"
-          maxlength="8"
+          v-mask="'#####-###'"
           >
-
           <button 
           class="btn"
           @click="buscarCep"
           >
           Buscar
           </button>
-
         </div>
-
       
         <div class="endereco-info" v-if="esconderInfo">
           <div class="info">
@@ -60,11 +56,8 @@
         </div>
         
       </div>
-
     </div>
-
   </section>
-
 </template>
 
 <script>
@@ -96,17 +89,16 @@ export default {
   },
   methods:{
     async buscarCep(){
-      if(this.endereco.cep){
-        if(/^\d+$/.test(this.endereco.cep)){
+      const cep = this.endereco.cep.replace('-', '');
+      if(cep){
+        if(/^\d+$/.test(cep) && cep.length === 8){
           try {
           this.esconderInfo = false;
-          this.esconderErro=true;
           this.show=true;
           const response = await fetch(`http://viacep.com.br/ws/${this.endereco.cep}/json/`)
           const data = await response.json();        
               setTimeout(() => {
                 if(data.erro){
-                  
                   this.$toast.open({
                   message: 'CEP não encontrado!',
                   type: 'error',
@@ -119,10 +111,8 @@ export default {
                   this.endereco.localidade = data.localidade;
                   this.endereco.uf = data.uf;
                   this.esconderInfo = true;
-                  
                 }
                 this.show = false;
-                
               }, 900);  
         } catch (error) {
           this.$toast.open({
@@ -146,11 +136,9 @@ export default {
             message: 'Por Gentileza, digite um CEP!',
             type: 'error',
             position:'top',
-
           });
         this.esconderErro=false;
       }
-
     },
   },
   computed:{
