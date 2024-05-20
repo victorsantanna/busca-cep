@@ -1,18 +1,18 @@
 <template>
 
   <section class="container">
-    <div class="form-img">
-      <img :src="currentImage" alt="imagem de localização" class="image-transition">
+    <div class="formulario-img">
+      <img :src="imagemAtual" alt="imagem de localização" class="transicao-imagem">
     </div>
 
-    <div class="form">
-      <div class="form-header">
+    <div class="formulario">
+      <div class="formulario-cabecalho">
 
-        <div class="title">
+        <div class="titulo">
           <h2>Buscar Endereço</h2>
         </div>
 
-        <div class="form-group">
+        <div class="formulario-grupo">
           <input 
           class="input-cep"
           type="text"
@@ -24,7 +24,7 @@
           v-mask="'#####-###'"
           >
           <button 
-          class="btn"
+          class="botao"
           @click="buscarCep"
           >
           Buscar
@@ -45,7 +45,7 @@
           
         </div>
 
-        <div class="parent">
+        <div class="elemento-loading">
           <vue-element-loading 
           :active="show" 
           spinner="line-scale" 
@@ -81,7 +81,7 @@ export default {
       esconderInfo:false,
       erro:'',
       esconderErro:false,
-      currentIndex: 0,
+      indiceAtual: 0,
       imagens:[
       'img/map.png','img/map2.png', 'img/map3.png',
       ]
@@ -113,7 +113,7 @@ export default {
                   this.esconderInfo = true;
                 }
                 this.show = false;
-              }, 900);  
+              }, 5000);  
         } catch (error) {
           this.$toast.open({
             message: 'Servidor fora do Ar!',
@@ -134,7 +134,7 @@ export default {
       }else{
         this.$toast.open({
             message: 'Por Gentileza, digite um CEP!',
-            type: 'error',
+            type: 'warning',
             position:'top',
           });
         this.esconderErro=false;
@@ -142,13 +142,13 @@ export default {
     },
   },
   computed:{
-    currentImage() {
-    return this.imagens[this.currentIndex];
+    imagemAtual() {
+    return this.imagens[this.indiceAtual];
   },
   },
   mounted() {
   setInterval(() => {
-    this.currentIndex = (this.currentIndex + 1) % this.imagens.length;
+    this.indiceAtual = (this.indiceAtual + 1) % this.imagens.length;
   }, 5000); 
 },
 }
@@ -181,7 +181,7 @@ export default {
   box-shadow: 5px 5px 10px rgba(0,0,0, .212);
 }
 
-.form-img{
+.formulario-img{
   width: 50%;
   display: flex;
   justify-content: center;
@@ -190,12 +190,11 @@ export default {
   padding: 1rem;
 
 }
-.form-img img{
+.formulario-img img{
   width: 31rem;
-  
 }
 
-.form{
+.formulario{
   width: 50%;
   display: flex;
   justify-content: center;
@@ -205,18 +204,18 @@ export default {
   padding: 4rem;
 }
 
-.form-header{
+.formulario-cabecalho{
   margin-top: 6rem;
   margin-bottom: 2rem;
   
 }
-.title{
+.titulo{
   margin-bottom: .5rem;
   font-size: 17px;
   font-family: tahoma,sans-serif;
 }
 
-.btn{
+.botao{
   border: none;
   background-color: #09445f;
   padding: 0.5rem 1rem;
@@ -224,7 +223,7 @@ export default {
   color: #fff;
   cursor: pointer;
 }
-.btn:hover{
+.botao:hover{
   border: #02AEFF;
   background-color: #006492;
   transition: 0.3s;
@@ -242,7 +241,7 @@ export default {
   margin-top: 1rem;
 }
 
-.parent{
+.elemento-loading{
   margin-top: 4rem;
 }
 .input-info {
@@ -272,27 +271,27 @@ p{
 }
 
 @media screen and (max-width: 963px){
-  .form-img{
+  .formulario-img{
     display: none;
   }
   .container{
     width: 50%;
   }
-  .form{
+  .formulario{
     width:100%;
   }
 
 }
 @media screen and (max-width: 818px){
  
-  .btn, .input-cep{
+  .botao, .input-cep{
     width: 100%;
   }
   .input-info{
     margin: 0.2rem 0;
     padding: 0.2rem .6rem;
   }
-  .title{
+  .titulo{
     font-size:12px;
   }
 }
