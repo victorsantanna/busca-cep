@@ -38,6 +38,26 @@ Este projeto é licenciado sob a [MIT License](LICENSE).
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
+## Preview da Aplicação
+
+<img src="https://github.com/victorsantanna/busca-cep/blob/main/public/img/preview/TELA-PRINCIPAL.jpg" alt="tela principal">
+
+## Preview com o resultado da busca
+
+<img src="https://github.com/victorsantanna/busca-cep/blob/main/public/img/preview/TELA-COM-A-BUSCA-DO-CEP.jpg" alt="tela com resultado">
+
+## Preview com os Erros da aplicação
+
+<img src="https://github.com/victorsantanna/busca-cep/blob/main/public/img/preview/TELA-ERRO-AO-BUSCAR-O-CEP.jpg" alt="tela com erros">
+
+
+<img src="https://github.com/victorsantanna/busca-cep/blob/main/public/img/preview/TELA-COM-AVISO-CEP-N%C3%83O-ENCONTRADO.jpg" alt="tela com erros">
+
+
+## Preview com Avisos da aplicação
+
+<img src="https://github.com/victorsantanna/busca-cep/blob/main/public/img/preview/TELA-COM-AVISO-QUANDO-O-INPUT-ESTIVER-VAZIO.jpg" alt="tela com avisos">
+
 
 
 ## Project setup
